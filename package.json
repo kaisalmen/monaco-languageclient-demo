@@ -25,18 +25,18 @@
   },
   "dependencies": {
     "@codingame/esbuild-import-meta-url-plugin": "~1.0.3",
-    "@codingame/monaco-vscode-extension-api": "^21.3.2",
-    "@codingame/monaco-vscode-standalone-languages": "^21.3.2",
-    "@codingame/monaco-vscode-editor-api": "^21.3.2",
-    "@codingame/monaco-vscode-json-default-extension": "^21.3.2",
-    "@codingame/monaco-vscode-standalone-json-language-features": "^21.3.2",
-    "@typefox/monaco-editor-react": "~7.1.0",
+    "@codingame/monaco-vscode-extension-api": "^22.1.4",
+    "@codingame/monaco-vscode-standalone-languages": "^22.1.4",
+    "@codingame/monaco-vscode-editor-api": "^22.1.4",
+    "@codingame/monaco-vscode-json-default-extension": "^22.1.4",
+    "@codingame/monaco-vscode-standalone-json-language-features": "^22.1.4",
+    "@typefox/monaco-editor-react": "~7.3.0-next.2",
     "jszip": "~3.10.1",
     "langium": "~4.1.0",
-    "monaco-languageclient": "~10.1.0",
+    "monaco-languageclient": "~10.3.0-next.2",
     "react": "~19.1.1",
     "react-dom": "~19.1.1",
-    "vscode": "npm:@codingame/monaco-vscode-extension-api@^21.3.2",
+    "vscode": "npm:@codingame/monaco-vscode-extension-api@^22.1.4",
     "vscode-languageclient": "~9.0.1",
     "vscode-uri": "~3.1.0",
     "vscode-ws-jsonrpc": "~3.5.0",
@@ -100,9 +100,6 @@
     "vite": "~7.1.7",
     "vitest": "~3.2.4",
     "prettier": "^3.6.2"
-  },
-  "overrides": {
-    "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@^21.3.0"
   }
 }
 

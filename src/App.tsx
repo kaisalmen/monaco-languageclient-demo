@@ -1,13 +1,14 @@
-import {MonacoEditorReactComp} from "@typefox/monaco-editor-react";
-import type {CodeContent, EditorAppConfig, TextContents} from "monaco-languageclient/editorApp";
-import {useState, useRef, useEffect} from "react";
-import {BrowserMessageReader, BrowserMessageWriter} from "vscode-jsonrpc/browser";
+// import * as monaco from '@codingame/monaco-vscode-editor-api';
+import { MonacoEditorReactComp } from "@typefox/monaco-editor-react";
+import type { CodeContent, EditorAppConfig, TextContents } from "monaco-languageclient/editorApp";
+import type { LanguageClientConfig } from "monaco-languageclient/lcwrapper";
+import type { MonacoVscodeApiConfig } from "monaco-languageclient/vscodeApiWrapper";
+import { configureDefaultWorkerFactory } from "monaco-languageclient/workerFactory";
+import { useState } from "react";
+import { LogLevel } from "vscode";
+import { BrowserMessageReader, BrowserMessageWriter } from "vscode-jsonrpc/browser";
 import text from "./langium/example.statemachine?raw";
 import workerUrl from "./langium/worker?worker&url";
-import type {LanguageClientConfig} from "monaco-languageclient/lcwrapper";
-import type {MonacoVscodeApiConfig} from "monaco-languageclient/vscodeApiWrapper";
-import {configureDefaultWorkerFactory} from "monaco-languageclient/workerFactory";
-import {LogLevel} from "vscode";
 
 import statemachineLanguageConfig from "../language-configuration.json?raw";
 import responseStatemachineTm from "./langium/syntaxes/statemachine.tmLanguage.json?raw";
@@ -91,39 +92,23 @@ const createEditorAppConfig = (codeContent: CodeContent): EditorAppConfig => ({
     },
 });
 
-const languageClientConfig = createLanguageClientConfig();
-const vscodeApiConfig = createVscodeApiConfig();
-const editorAppConfig = createEditorAppConfig({
-    uri: "/workspace/example.statemachine",
-    text: text,
-});
-
 const App = () => {
-    const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
     const [testState, setTestState] = useState<string>(text);
-    const [minimapState, setMinimapState] = useState<bool>(text);
-
-    const onEditorStartDone = (editorApp?: EditorApp): void => {
-      const editor = editorApp.getEditor();
-      if (editor !== undefined) {
-        editorRef.current = editorApp.getEditor();
-      }
-    }
+    const languageClientConfig = createLanguageClientConfig();
+    const vscodeApiConfig = createVscodeApiConfig();
+    const editorAppConfig = createEditorAppConfig({
+        uri: "/workspace/example.statemachine",
+        text: testState,
+    });
 
     const onTextChanged = (textChanges: TextContents) =>
       setTestState(textChanges.modified as string);
-
-    useEffect(() => {
-      editorRef.current?.updateOptions({
-        minimap: {enabled: minimapState},
-      });
-    }, [editorRef, minimapState]);
 
     return (
         <>
             <button
                 style={{background: "purple"}}
-                onClick={() => setMinimapState(!minimapState)}
+                onClick={() => setTestState(testState + "\n // comment")}
             />
 
             <MonacoEditorReactComp
